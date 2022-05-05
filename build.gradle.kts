@@ -26,17 +26,6 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
 }
 
-tasks {
-    jar {
-        manifest {
-            attributes("Main-Class" to "net.stckoverflw.apcsnmp.LauncherKt")
-        }
-    }
-    build {
-        dependsOn(shadowJar)
-    }
-}
-
 application {
     mainClass.set("net.stckoverflw.apcsnmp.LauncherKt")
 }
