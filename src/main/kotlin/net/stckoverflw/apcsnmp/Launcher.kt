@@ -2,7 +2,7 @@ package net.stckoverflw.apcsnmp
 
 import com.influxdb.client.kotlin.InfluxDBClientKotlinFactory
 import dev.inmo.krontab.doInfinity
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.coroutineScope
 import org.soulwing.snmp.SimpleSnmpV1Target
 import org.soulwing.snmp.SnmpFactory
 
@@ -34,7 +34,7 @@ suspend fun main() {
     }
 
     val contexts = targets.map { SnmpFactory.getInstance().newContext(it) }
-    runBlocking {
+    coroutineScope {
         println("loading values from ${targets.count()} targets")
         doInfinity("/${Config.configuration.interval} * * * *") {
             contexts.forEachIndexed { contextIndex, context ->
